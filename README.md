@@ -1,6 +1,8 @@
 # fuzzycluster
-Web-server for FuzzyCluster
-With added sqlite3 jobs:
+Web-server for FuzzyCluster 
+
+All backend with added sqlite3 jobs:
+
 ```
 for management of fasta files uploads and chroomosome (worker.py)
 for management of multifasta files uploads and entire genomes (heavy_worker.py)
