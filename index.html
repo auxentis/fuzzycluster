@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+   
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- 
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=k_z31ChC3YTlsd-ZLF1_hCwpvL0EY9B5Z3-BKUwXKz-jq6Xtvct4r2iTw7JHFF5EZ9aVp1taL6iZTIoDfUbbwQDzMV_horbMivGpmuXiRj_J4gubKiVDs_YWvdnge7tNRaOunGf1QrWxzQ0hYYJQjtvokVVNHj5libNyEjYx6SLR8wqh_TLMZDZo89DvuOFLeAUhkTL9NRaJmd6xIUMe2xfaLTcEn-K91K-5ppIgiuQqG280FYWula27n3Al6MyxE0PXdTbwOxmgSqz0cT4D51tWsHenU01QnC181UUCE5RaeImPuO9QqYO24PJkWZg3CB56gkY5rjcP8N60g-UI9tdokAdRgzSsHI5JVdEkUh-cnnoA3auj8lPC6RMfukCKImPkESNXkOfFO3W4KeUl_1T-HPbpa8FyVCFkyUdsByUw2Zs20mUtYPfwENDnvOxJZjK2cWCQm8VlpsclK9P96seTppmS1XVEYXo0zc6ucBORqsxGiVFG6oyHF79amk5v_o4yh8k9Y440ISlVPsYy0dFyw5BvhxBPdj8qrZGMxGecbdfa8-snYTtmeJXTngaSSQK1FziVAfFYyF5AlhblKkrYstD2PULlyG8M05ZPEedHLKaDxDD6Jl2vFzha6pgID-ubCTW2DtThNJVmI2PLIQ" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly93ZWJhdHRhY2gubWFpbC55YW5kZXgubmV0L21lc3NhZ2VfcGFydF9yZWFsL2luZGV4Lmh0bWw_bmFtZT1pbmRleC5odG1sJnNpZD1ZV1Z6WDNOcFpEcDdJbUZsYzB0bGVVbGtJam9pTVRjNElpd2lhRzFoWTB0bGVVbGtJam9pTVRjNElpd2lhWFpDWVhObE5qUWlPaUppY0ROSmMxSjJVRWhWTVhCVE9EaHNXbnBoVjNWQlBUMGlMQ0p6YVdSQ1lYTmxOalFpT2lKYWIwbHFjVUZNYVUxUlUwbzRVM2xVSzBGclVEVkZObk5TWkVOa1ZVRTJOVTRyYTA5SVFtWkJaRkV2U0dSYVJIWmphMmRtTlU5U2NGVnFMMmxvUjNoQ09EUk9SRUpMVUVSclZuaDBSbkZzVW00NVdXZ3laRTl2UWxoUVJIWXJNSEJsV1ZSd2JGb3JTRmgwZUhwNE1ETXpMMVpWZDBaT1RXMWFWbGxaUTNrelFTSXNJbWh0WVdOQ1lYTmxOalFpT2lKU04zaHNaMjUwVjNsR1dYbFVNalk1VWpZNFpFOURjVkZhUnpadlNFUXZaVU5OTWxKa2FXbExVemt3UFNKOQ"/><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    -->
+
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=SbLyNAtK5J8fW79fczTQqADilJkF6DwLxv1wMH9ydubb_LMfICh6cOPJwT4cGKTHJ2lz6JLevEjUXNUepyekEn5vscOyddYu2CvXZGBvYswpIg8FiLAzoUvfaxNf6I_8fphIFHjEXmL_NgoLmsTTWPR3_ct3WQlaWaW-FImAYoNKPiCOg-XM68e_1Ec6eFOmCEE3KTHLUzNl0cvbAfVWmvLqlaiyqpgqamn91Fu4SCh3djbsjBT9xRsfNelXvAOf56V0JPMn0fVNdxqqd7C_Gy11IR_sj3Si5bsq8nHAL-pZIe8-gJVyriANta_SxkZqH_9GQFjBjVDOS5SYKGv-fem9dw89KDjnEMPFBKPL9KHrYp5W7I8TrKWEOnT3aFLq3jv4KYW0vEjV6TqO_Zgq6qRzyGe1Ft0FQZKkMMMLtYKI-ZiD-dPuXS0DQWUXc9iRDtBHgJcqjNhcZLj2M2zK-XxAQMPLp0U7ZNqIv63a9MBHPy128AzY_GqNh6joinVoq88wAmIgYyysTuMuCX47orjelnJKaODJuy4qbtR_6F86RFlkLBix8O5UYT5JcxcAcum2ud9b1AghQluVuM-q_3BrccBOlSvVQqzCnzLfVj0wdL84glRqLGIBXaIKf5rR3TvwZ5kyfy-9JU4VsBXjpQ" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly93ZWJhdHRhY2gubWFpbC55YW5kZXgubmV0L21lc3NhZ2VfcGFydF9yZWFsL2luZGV4Lmh0bWw_bmFtZT1pbmRleC5odG1sJnNpZD1ZV1Z6WDNOcFpEcDdJbUZsYzB0bGVVbGtJam9pTVRjNElpd2lhRzFoWTB0bGVVbGtJam9pTVRjNElpd2lhWFpDWVhObE5qUWlPaUpXZEhCdVFWUTBVM2gzTWpaemMzUnZXR04wUlZSblBUMGlMQ0p6YVdSQ1lYTmxOalFpT2lKdmNHZ3ZWMmMzYldweVRqY3dabm93TkZwTWRUQnZjRFJXWlRnNFdsVjVaMWhEV0dkR1FUY3pZbmMxUjNWRVFYaEZOSGRtVVVKSllYWnpOVzR5ZGxsdk5WbHJVM2NyYVVWaE9Ua3dUbTk1Y25sSGRrMTVaRmxGT1RWQmNsWjJkbWhFU2pOUVZVWlpWWHB1UVVWTVFqRm1aVEpvU0V4R2MyZHlkaTlqTlhOV1FpSXNJbWh0WVdOQ1lYTmxOalFpT2lKUk9VdHllbEp6Wm1oR2EwRldlazFpZDNwc01XMDRTM1JLYUhoNk4xQmFLM1ZQY1VocmRYSnRjMUZKUFNKOQ"/><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+   
+    <!-- <title> FuzzyClusTeR </title> -->
+
+
+  </head>
+
+  <body style="background: rgb(255, 255, 255);">
+   
+    <div class="custom-bar">
+      <h3 class="time">{{ utc_dt }}</h3>
+      <span class="title">FuzzyClusTeR</span>
+      <a href="{{ url_for('about')}}" class="link">About</a>
+    </div>
+    
+    <!-- Flash Message Block -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div id="flash-container">
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+  
+  <div class="main">
+  <div class="row px-0">
+    <form id="dnaForm" method="post" action="{{ url_for('predictGC')}}" enctype="multipart/form-data" onsubmit="showSpinner()">
+          {{ form.hidden_tag() }}
+          
+      <!-- {{ form.seqname.label(class = 'textlabel') }} {{ form.seqname(class = 'seqname', placeholder="Name/id") }} -->
+      {% if enter_the_sequence == 'Please, enter the sequence of at least 30 nt, or choose a genome or upload the file' %}
+      {{ form.seq.label(class = 'textlabel-sequence') }} {{ form.seq(class = 'seq_highlight', placeholder = "Please, enter a sequence of at least 30 nt, or choose a genome, or upload a file") }}
+      {% else %}
+      {{ form.seq.label(class = 'textlabel-sequence') }} {{ form.seq(class = 'seq', placeholder = "Enter nucleotide sequence, letters A, T, G, C") }}
+      {% endif %}
+      {% if choose_option == 'Please, choose only one option or upload the file' %}
+      <mark class = 'highlight'>{{ choose_option }}</mark></legend>
+      {% endif %}
+      
+      {% if choose_option == 'Please, choose the chromosome' %}
+      <mark class = 'highlight'>{{ choose_option }}</mark></legend>
+      {% endif %}
+  </div>
+      
+  <div class="row px-0">
+    <div class="form-group col-md-3">
+      <div class="textlabel-wrapper">
+        {{ form.seqname.label(class = 'textlabel') }}
+        <span class="hover-info-name">
+            <i class="fas fa-info-circle"></i>
+            <span class="hover-text">Name or id of the analyzed sequence (optional)</span>
+        </span>
+      </div>  
+         {{ form.seqname(class = 'boxgroup', placeholder="Name/id") }}
+    </div>
+      <div class="form-group col-md-2 mx-0 px-0">
+        <div class="textlabel-wrapper">
+           {{ form.clusterscore.label(class = 'textlabel') }} 
+          <span class="hover-info">
+            <i class="fas fa-info-circle"></i>
+            <span class="hover-text">Reflects the density of the repeats per identified clusters </span>
+          </span>
+        </div>
+         {{ form.clusterscore(class = 'boxgroup', placeholder = ">=0") }}
+      </div>
+    <div class="form-group col-md-2 mx-0 px-0">
+      <div class="textlabel-wrapper">
+        {{ form.input_looplength.label(class = 'textlabel') }} 
+        <span class="hover-info">
+          <i class="fas fa-info-circle"></i>
+          <span class="hover-text">Loop length which will be used for clustering of the repeats, if not indicated the estimated median loop length for the analyzed sequence will be used</span>
+        </span>
+      </div>
+      {{ form.input_looplength(class = 'boxgroup', placeholder = ">=0") }}
+    </div>
+    <div class="form-group col-md-2 mx-0 px-0">
+      <div class="textlabel-wrapper">
+        {{ form.ssr.label(class = 'textlabel') }}
+          <span class="hover-info">
+            <i class="fas fa-info-circle"></i>
+            <span class="hover-text">Ratio between the theoretical Cluster Score and determined Cluster Score</span>
+          </span>
+      </div>
+        {{ form.ssr(class = 'boxgroup', placeholder = '0<SSR<1', min=0.0, max=1.0, step=0.01) }}
+
+    </div>
+      <div class="form-group col-md-2 mx-0 px-0">
+        <div class="textlabel-wrapper">
+        {{ form.repeats_number.label(class = 'textlabel') }}
+        <span class="hover-info">
+          <i class="fas fa-info-circle"></i>
+          <span class="hover-text">Minimal number of repeats in a cluster</span>
+        </span>
+        </div>
+         {{ form.repeats_number(class = 'boxgroup', placeholder = ">=2") }}
+      </div>
+  </div>
+      
+  <div class = "col-md-6">
+      <span class="hover-info-file">
+      <i class="fas fa-info-circle"></i>
+      <span class="hover-text">Files up to 250Mb can be uploaded</span>
+    </span>
+    {{ form.file.label(class = 'textlabel-upload') }}{{ form.file(class = 'filebutton') }}
+  </div>      
+ 
+  <div class="row px-4">
+    <div class="col-md-7 mx-0 px-0">
+      <div><legend class = 'textlabel-sequence'>Genomes:</div>
+        <br>
+        <div class="button-group">
+          {% for subfield in form.choicegenome %}
+              <input type="radio" id="{{ subfield.id }}" 
+              class="square-radio" 
+              name="{{ form.choicegenome.name }}" 
+              value="{{ subfield.data }}"
+              {% if subfield.checked %}checked{% endif %}>
+              <label for="{{ subfield.id }}">{{ subfield.label.text }}</label><br>
+          {% endfor %}
+        </div>
+          <div><legend class = 'textlabel-sequence'>Chromosome:</div>
+            <br>
+            <div class="button-group">
+              <p>{{ form.chromosome(class = 'boxgroup_chr', placeholder = "1-24") }}</p>
+              {% for error in form.chromosome.errors %}
+              <div style="color:red;">{{ error }}</div>
+              {% endfor %}
+            </div>
+    </div>
+
+    <div class="col-md-4 mx-0 px-0">
+      <div><legend class = 'textlabel-sequence'>Search patterns:</div>
+        <br>
+        <div class="button-group">
+          {% for subfield in form.choice %}
+            <input type="radio" id="{{ subfield.id }}" 
+            class="square-radio" 
+            name="{{ subfield.name }}" 
+            value="{{ subfield.data }}" 
+            {% if subfield.checked %}checked{% endif %}>
+              <label type="radiolabel" for="{{ subfield.id }}"> 
+                {{ subfield.label.text }} 
+              </label><br>
+            {% endfor %}
+        </div>
+        <div class="button-group">
+          <p>{{ form.tandem_repeats(class = 'square-radio') }} {{ form.tandem_repeats.label(class = 'textlabelsmall') }}</p>
+        </div>
+      </div>
+    </div> 
+      <div>
+        {% if enter_the_pattern == 'Please, enter the pattern' %}
+        {{ form.pattern(class = 'pattern_highlighted', placeholder = "Please, enter the pattern. Elements separated by '|'.") }}
+        {% else %} 
+        {{ form.pattern(class = 'pattern', placeholder = "Enter custom pattern. Elements separated by '|'.") }}
+        {% endif %}
+        {% for error in form.pattern.errors %}
+        <div style="color:red;">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <div>
+        <br>
+          <legend class = 'textlabel-sequence'>Printing settings</legend>
+          {{ form.printind(class = 'checkbox') }} {{ form.printind.label(class = 'textlabelsmall') }} 
+        
+          {{ form.printseq(class = 'checkbox') }} {{ form.printseq.label(class = 'textlabelsmall') }} 
+          <br>
+          {{ form.printclust(class = 'checkbox') }} {{ form.printclust.label(class = 'textlabelsmall') }} 
+          <br>
+          {{ form.csvrepeats(class = 'checkbox') }} {{ form.csvrepeats.label(class = 'textlabelsmall') }} 
+    
+          {{ form.csvclusters(class = 'checkbox') }} {{ form.csvclusters.label(class = 'textlabelsmall') }} 
+        <br>
+      </div>
+      </fieldset>
+        <!-- <p>{{ form.submit(class="btn btn-primary btn-block btn-medium") }}</p> -->
+        <br>
+    <div class="row px-0">
+      <div class="form-group col-md-3">
+        <div class="submit-button">
+          <p>{{ form.submit(class="btn btn-outline-secondary") }}</p>
+        </div>
+      </div>
+      <!-- <p><input type="submit" value="Submit"></p> -->   
+  </form>
+  <!-- <div id="overlay"></div>
+  <div id="spinner" class="spinner"></div> -->
+      <div class="form-group col-md-3">
+      <a href="{{ url_for('predictGC')}}"><button class="btn btn-outline-danger">Reset the form</button></a>
+      </div>
+  </div>
+    <br>
+    <br>
+
+
+
+   <br>
+   <br>
+   <h3>{{ prediction_text0 }}</h3>
+   <h10>{{ prediction_text1 }}</h10>
+   <br>
+   <h3>{{ prediction_text2 }}</h3>
+   <h10>{{ prediction_text3 }}</h10>
+   <br>
+   <br>
+   {% if sequence_print == checked %}
+   <h3>{{ prediction_text4 }}</h3>
+   <box><h10>{{ prediction_text5|safe }}</h10></box>
+   <br>
+   <h3>{{ prediction_text6 }}</h3>
+   <box><h10>{{ prediction_text7|safe }}</h10></box>
+   <br>
+   {% else %} 
+   <h3>{{ prediction_text4 }}</h3>
+   <h3>{{ prediction_text6 }}</h3>
+    {% endif %}
+   <h3>{{ prediction_text8 }}</h3>
+   <box><h10>{{ prediction_text9|safe }}</h10></box>
+   <h3>{{ prediction_text10 }}</h3>
+   <box><h10>{{ prediction_text11|safe }}</h10></box>
+
+   <!-- <h2>{{ prediction_text8 }}</h2>
+   <box>{{ prediction_text9 }}</box>
+   <h2>{{ prediction_text10 }}</h2>
+   <box>{{ prediction_text11 }}</box> -->
+
+  <br>
+  <br>
+  
+  {% if cluster_data_threshold == False: %}
+  <div align="left">
+    <h3>{{ titlesG }}</h3>
+    <div class="tableFixHead">
+      <table class="table">      
+          {{ tablesG|safe }}
+      </table>
+    </div>
+    <h3>{{ titlesC }}</h3>  
+      <div class="tableFixHead">
+        <table class="table">                           
+          {{ tablesC|safe }}
+        </table>
+      </div>
+  </div>
+  {% endif %}
+
+  {% if plot_image == 'plot': %}
+  
+  <div class="figure">
+    <h6>{{ prediction_text12|safe }}</h6>
+    <br>
+    {% if plot1_url %}
+  <img src="{{ plot1_url }}" alt="Plot 1">
+    {% endif %}
+
+    {% if plot2_url %}
+  <img src="{{ plot2_url }}" alt="Plot 2">
+    {% endif %}
+
+    {% if plot3_url %}
+  <img src="{{ plot3_url }}" alt="Plot 3">
+    {% endif %}
+
+  <!-- <img id = 'plot1'
+    src="{{ session_dir+'/plot.png' }}">
+    <img id = 'plot2'
+    src="{{ session_dir+'/plot_hist.png' }}">
+    <img id = 'plot3'
+    src="{{ session_dir+'/cluster_plot.png' }}"> -->
+  {% endif %}   
+  </div>
+ </div>
+
+
+ <div class="download-btn-container"> 
+  {% if download_files == 1 %}
+  <a href="{{ url_for('download', job_id=job_id) }}"
+      class="btn btn-danger">Download csv files</button>
+  </a>
+  {% endif %}
+
+  {% if download_figures == 1 %}
+  <a href="{{ url_for('download_figs', job_id=job_id) }}"
+      class="btn btn-danger">Download figures</button>
+  </a>
+  {% endif %}
+</div>
+
+
+
+<div id="preparing-spinner" class="spinner-overlay" style="display: none;">
+  <div class="spinner-wrapper">
+    <p>Your data are prepared for analysis...</p>
+    <div class="spinner"></div>
+  </div>
+</div>
+
+<div id="processing-spinner" class="spinner-overlay" style="display: none;">
+  <div class="spinner-wrapper">
+    <p>Analysis in progress...</p>
+    <div class="spinner"></div>
+  </div>
+</div>
+
+
+
+<script>
+function showSpinner() {
+  document.querySelector('.main').classList.add('blur');
+  // Prevent spinner from staying hidden
+  document.getElementById('preparing-spinner').style.display = 'flex';
+
+  // After 1 second, hide preparing spinner and show processing spinner
+  setTimeout(() => {
+    document.getElementById('preparing-spinner').style.display = 'none';
+    document.getElementById('processing-spinner').style.display = 'flex';
+  }, 1000);
+}
+function hideProcessingSpinner() {
+  document.getElementById('processing-spinner').style.display = 'none';
+  document.querySelector('.main').classList.add('blur');
+}
+</script>
+
+<script>
+  // Automatically fade out flash messages after 3 seconds
+  setTimeout(() => {
+    const messages = document.querySelectorAll('.flash-message');
+    messages.forEach(msg => {
+      msg.classList.add('fade-out');
+      // Then remove from DOM completely after fade
+      setTimeout(() => msg.remove(), 1000);
+    });
+  }, 15000);
+</script>
+
+
+</body>
+
+
+
+
+</html>
+
+
