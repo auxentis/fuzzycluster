@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Processing your job...</title>
+</head>
+
+<body style="background: rgb(255, 255, 255);">
+    <div class="custom-bar">
+      <h3 class="time">{{ utc_dt }}</h3>
+      <span class="title">FuzzyClusTeR</span>
+      <a href="{{ url_for('about')}}" class="link">About</a>
+    </div>
+
+
+<div class="main" style="text-align:center;">
+  <canvas id="waveCanvas" width="400" height="120" style="display:block;margin:20px auto;"></canvas>
+
+  <p class="message" id="message">Your job is being processed. It may take a few minutes. Please wait...</p>
+  <p>Elapsed time: <span id="elapsed">0</span> second(s)</p>
+
+  <script>
+  const jobId = "{{ job_id }}";
+  const startTime = Date.now();
+  const maxWait = 30 * 60 * 1000; // 30 minutes
+  window.API_PREFIX = "{{ route_prefix }}";
+  let fakeProgress = 0;
+
+  // --- Wave animation ---
+  const canvas = document.getElementById('waveCanvas');
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+
+  // Draw sharp vertical–plateau waves
+  function drawWave() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+
+    const baseY = 100;  // baseline
+    const amplitude = 60;
+    const period = 100; // pixels per cycle
+
+    // offset animation
+    let offset = t % period;
+
+    // start from left
+    let x = -offset;
+    ctx.moveTo(x, baseY);
+
+    while (x < canvas.width) {
+      // vertical rise
+      ctx.lineTo(x, baseY - amplitude);
+
+      // horizontal plateau
+      ctx.lineTo(x + 40, baseY - amplitude);
+
+      // vertical drop
+      ctx.lineTo(x + 40, baseY);
+
+      // horizontal base
+      ctx.lineTo(x + period, baseY);
+
+      x += period;
+    }
+
+    ctx.strokeStyle = "rgba(100,100,220,0.8)";
+    ctx.lineWidth = 3;
+    ctx.lineJoin = "miter"; // sharp corners
+    ctx.stroke();
+
+    t += 1.2; // movement speed
+    requestAnimationFrame(drawWave);
+  }
+
+  drawWave();
+
+  // --- Job status polling ---
+  async function checkStatus() {
+    const now = Date.now();
+    const elapsedSec = Math.floor((now - startTime) / 1000);
+    document.getElementById("elapsed").innerText = elapsedSec;
+
+    if (fakeProgress < 95) {
+      fakeProgress += Math.random() * 2;
+      if (fakeProgress > 95) fakeProgress = 95;
+    }
+
+    if (now - startTime > maxWait) {
+      document.getElementById("message").innerHTML =
+        "This job is taking longer than expected. You may try submitting it again or check back later.";
+      return;
+    }
+
+    try {
+      const response = await fetch(`${window.API_PREFIX}/light_job_status/${jobId}`);
+      const data = await response.json();
+
+      if (data.status === "completed") {
+        document.getElementById("message").innerHTML = "✅ Job completed!";
+        window.location.href = `${window.API_PREFIX}/light_job_result/${jobId}`;
+      } else if (data.status === "failed") {
+        document.getElementById("message").innerHTML =
+          "<h2>Job failed 😕</h2><p>" + data.error + "</p>";
+      } else {
+        setTimeout(checkStatus, 1000);
+      }
+    } catch (err) {
+      console.error(err);
+      setTimeout(checkStatus, 2000);
+    }
+  }
+
+  window.onload = checkStatus;
+  </script>
+</div>
+
+
+</body>
+</html>

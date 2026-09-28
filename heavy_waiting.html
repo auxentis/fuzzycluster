@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Processing your job...</title>
+</head>
+
+<body style="background: rgb(255, 255, 255);">
+  
+  <div class="custom-bar">
+    <h3 class="time">{{ utc_dt }}</h3>
+    <span class="title">FuzzyClusTeR</span>
+    <a href="{{ url_for('about')}}" class="link">About</a>
+  </div>
+
+ <div class="main" style="text-align:center;">
+  <canvas id="heavyWaveCanvas" width="500" height="240" style="display:block;margin:20px auto;"></canvas>
+
+  <p class="message" id="message">Multifasta job is running. It may take longer, please wait...</p>
+  <p>Elapsed time: <span id="elapsed">0</span> second(s)</p>
+
+  <script>
+  const jobId = "{{ job_id }}";
+  const startTime = Date.now();
+  const maxWait = 60 * 60 * 1000; // 1 hour max
+  window.API_PREFIX = "{{ route_prefix }}";
+  let fakeProgress = 0;
+
+  // --- Canvas setup ---
+  const canvas = document.getElementById('heavyWaveCanvas');
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+
+  function drawSingleWave(baseY, amplitude, period, offset, color, speed) {
+    ctx.beginPath();
+    let x = -((t * speed) % period);
+    ctx.moveTo(x, baseY);
+
+    while (x < canvas.width) {
+      ctx.lineTo(x, baseY - amplitude);          // vertical rise
+      ctx.lineTo(x + 40, baseY - amplitude);     // plateau
+      ctx.lineTo(x + 40, baseY);                 // vertical drop
+      ctx.lineTo(x + period, baseY);             // base
+      x += period;
+    }
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.lineJoin = "miter";
+    ctx.stroke();
+  }
+
+  function drawAllWaves() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Three waves with different offsets, speeds, colors
+    drawSingleWave(180, 40, 100, 0, "rgba(100,150,220,0.9)", 1.5);
+    drawSingleWave(120, 30, 120, 20, "rgba(150,200,100,0.7)", 1.0);
+    drawSingleWave(60, 20, 80, 40, "rgba(220,150,100,0.6)", 0.8);
+    drawSingleWave(20, 10, 60, 60, "rgba(210,90,100,0.6)", 0.6);
+
+    t += 1;
+    requestAnimationFrame(drawAllWaves);
+  }
+
+  drawAllWaves();
+
+  // --- Job status polling ---
+  async function checkStatus() {
+    const now = Date.now();
+    const elapsedSec = Math.floor((now - startTime) / 1000);
+    document.getElementById("elapsed").innerText = elapsedSec;
+
+    if (fakeProgress < 95) {
+      fakeProgress += Math.random() * 1.5;
+      if (fakeProgress > 95) fakeProgress = 95;
+    }
+
+    if (now - startTime > maxWait) {
+      document.getElementById("message").innerHTML =
+        "This multifasta job is taking longer than expected. You can check back later.";
+      return;
+    }
+
+    try {
+      const response = await fetch(`${window.API_PREFIX}/heavy_job_status/${jobId}`);
+      const data = await response.json();
+
+      if (data.status === "completed") {
+        document.getElementById("message").innerHTML = "✅ Heavy job completed!";
+        window.location.href = `${window.API_PREFIX}/heavy_job_result/${jobId}`;
+      } else if (data.status === "failed") {
+        document.getElementById("message").innerHTML =
+          "<h2>Heavy job failed 😕</h2><p>" + data.error + "</p>";
+      } else {
+        setTimeout(checkStatus, 1500);
+      }
+    } catch (err) {
+      console.error(err);
+      setTimeout(checkStatus, 2000);
+    }
+  }
+
+  window.onload = checkStatus;
+  </script>
+</div>
+
+</body>
+</html>
