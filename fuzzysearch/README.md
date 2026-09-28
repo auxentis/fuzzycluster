@@ -14,7 +14,7 @@ Supported syntax: A, T, G, C [ATGC] or other character classes,\
                           T{1,2}\\D{1}A{1}G{3,5}|T{2}A{1}G{2}')
 
 
-"""
+```
 usage: script.py -f <path> -s <pattern> -d <dir>
 
 Search for motif or pattern and save results.
@@ -27,4 +27,4 @@ options:
 
   -d DIR, --dir DIR     Path to results directory
 
-"""
+```
