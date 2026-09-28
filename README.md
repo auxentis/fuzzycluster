@@ -21,7 +21,7 @@ fuzzycluster-web/
 |- static/ 
     |- shared/ # shared between containers folder for sessions        
     |- css/ # style.css is here
-    |- genomes/ # folder for genomes
+    |- genomes//2025_Genomes_for_fuzzycluster/ # folder for genomes
 
 ```
 
