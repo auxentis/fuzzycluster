@@ -71,7 +71,7 @@ from app import app
 ```
 Production-ready WSGI deployment:
 ```bash
-gunicorn -w 4 -b 127.0.0.1:<desired_port> wsgi:app  # Here we need to connect to a desired port, usually 8000
+gunicorn -c gunicorn.conf.py -w 4 -b 127.0.0.1:<desired_port> wsgi:app  # Here we need to connect to a desired port, usually 8000
 ```
 ### 5. Create a systemd Service File
 Create `/etc/systemd/system/fuzzycluster.service` (fuzzycluster is the name of the service)
@@ -87,7 +87,7 @@ User=username
 Group=www-data
 WorkingDirectory=/home/username/fuzzycluster-web
 Environment="PATH=/home/username/fuzzycluster-web/fuzzy/bin"
-ExecStart=/home/username/fuzzycluster-web/fuzzy/bin/gunicorn -w 4 -b 127.0.0.1:<desired_port> wsgi:app
+ExecStart=/home/username/fuzzycluster-web/fuzzy/bin/gunicorn -c gunicorn.conf.py -w 4 -b 127.0.0.1:<desired_port> wsgi:app
 
 [Install]
 WantedBy=multi-user.target
