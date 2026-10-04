@@ -1301,7 +1301,7 @@ def predictGC():
                             #filename = 'static/genomes/influenza_short_h4_Telinsert.fasta'
                             filename = 'static/genomes/2025_Genomes_for_fuzzycluster/GCF_000001405.40_GRCh38.p14_genomic.fna'  
                         
-                        if seqname == 'codetel':
+                        if seqname == '24chroms':
                             num = len([1 for line in open(filename) if line.startswith(">")])
                         else:
                             num = 1
