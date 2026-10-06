@@ -12,6 +12,9 @@ As a demonstration, we analyzed telomeric-like repeats in the T2T-CHM13v2.0 geno
 
 FuzzyClusTeR enables systematic exploration of repeat clustering across genomic regions or entire genomes.
 
+*FuzzyClusTeR: a web server for analysis of tandem and diffuse DNA repeat clusters with application to telomeric-like repeats*
+https://www.biorxiv.org/content/10.64898/2026.03.19.712643v1
+
 ## Repository structure
 
 ```text
